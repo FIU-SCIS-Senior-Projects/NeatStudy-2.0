@@ -1,0 +1,165 @@
+<div>
+<div layout="row" class="md-toolbar-tools" style="background-color:#26A69A;" >
+    <div flex>
+        <md-button ng-click="toggleLeft()" ><ng-md-icon icon="menu">  </ng-md-icon></md-button>
+    </div>
+
+    <div flex>
+        <h2 md-truncate flex>NEAT</h2>
+    </div>
+</div>
+
+
+
+
+
+
+<div id ="container">
+
+
+
+  <div layout="row">
+        <md-content  flex style="background-color:#80CBC4;">
+              <md-nav-bar md-selected-nav-item="currentNavItem" nav-bar-aria-label="navigation links">
+
+                  <md-nav-item md-nav-sref="joy" ng-click='joy()' name="joy" flex>JOY</md-nav-item>
+                  <md-nav-item md-nav-sref="passion" ng-click='passion()' name="passion" flex>PASSION</md-nav-item>
+                  <md-nav-item md-nav-sref="giving" ng-click='givingback()' name="giving">GIVING BACK</md-nav-item>
+
+              </md-nav-bar>
+        </md-content>
+  </div>
+
+
+<span>
+      <md-content  style="background-color:#80CBC4;">
+        <md-list>
+          <md-list-item layout="row">
+              <label flex>Activity</label>
+              <div layout="row" ng-init="initDatepicker();">
+              <md-datepicker  ng-model="startDate"  md-placeholder="Start date"  ng-click="ctrl.openCalendarPane($event)">
+              </md-datepicker>
+              <md-datepicker  ng-model="endDate" ng-change="sDate(startDate,endDate)" md-placeholder="End date" value="endDate" ></md-datepicker>
+              </div>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              <div>
+              <label>Scores</label>
+              </div>  
+          </md-list-item>
+        </md-list>
+      </md-content>
+
+
+      <div layout="row" class="weekDays-selector md-3-line days" style="display:none;margin-left:229px;">
+                      <input type="checkbox" id="{{$index}}-mon"  value="{{week[0]}}"/>
+                      <label for="{{$index}}-mon">{{week[0]}}</label>
+                      <input type="checkbox" id="{{$index}}-tue"  value="{{week[1]}}"/>
+                      <label for="{{$index}}-tue">{{week[1]}}</label>
+                      <input type="checkbox" id="{{$index}}-wed"  value="{{week[2]}}"/>
+                      <label for="{{$index}}-wed">{{week[2]}}</label>
+                      <input type="checkbox" id="{{$index}}-thu"  value="{{week[3]}}" />
+                      <label for="{{$index}}-thu">{{week[3]}}</label>
+                      <input type="checkbox" id="{{$index}}-fri"  value="{{week[4]}}"/>
+                      <label for="{{$index}}-fri">{{week[4]}}</label>
+                      <input type="checkbox" id="{{$index}}-sat"  value="{{week[5]}}" />
+                      <label for="{{$index}}-sat">{{week[5]}}</label>
+                      <input type="checkbox" id="{{$index}}-sun"  value="{{week[6]}}"/>
+                      <label for="{{$index}}-sun">{{week[6]}}</label>
+      </div>
+
+
+
+    
+
+<md-content  class="full-height" style="background-color:#B2DFDB;">  
+<md-list>
+<md-list-item ng-if="currentNavItem==='joy'" ng-repeat="act in joy_data track by $index">
+          
+          <div layout="row" class="md-3-line" flex>{{act.activity_name}}</div>
+
+
+                  <div layout="column" flex class="weekDays-selector md-3-line days" style="display:none;align:center;">
+
+                    <div layout="row" class="days">
+                      <span  ng-repeat="date in dateArray track by $index" class="weekDays-selector md-3-line days">
+                      <input type="checkbox" id="{{$parent.$index + date.name}}" value="{{date.name}}" ng-model="m_name['name'+$index+$parent.$index]" ng-change="joyChange({{$parent.$index}},m_name['name'+$index+$parent.$index],{{$parent.$index + date.name}})"/>
+                      <label for="{{$parent.$index + date.name}}">{{date.name}}</label>
+                      </span>                     
+                    </div>  
+                    <div layout="row" class="days">
+                      <span  ng-repeat="date in dateArray1 track by $index" class="weekDays-selector md-3-line days">
+                      <input type="checkbox" id="{{$parent.$index + date.name}}" value="{{date.name}}" ng-model="m_name1['name'+$index+$parent.$index]" ng-change="joyChange({{$parent.$index}},m_name1['name'+$index+$parent.$index],{{$parent.$index + date.name}})"/>
+                      <label for="{{$parent.$index + date.name}}">{{date.name}}</label>
+                      </span>                     
+                    </div> 
+                  </div>
+          <div layout="row"><canvas-gauge width="140" under-color="#EFEFEF" over-color="#FFD700" value="joyValues['progress'+$index]" mask="(@)%" style="color: gray"></canvas-gauge>
+          </div>
+   
+</md-list-item>
+</md-list>
+
+
+<md-list>
+<md-list-item ng-if="currentNavItem==='passion'" ng-repeat="act in passion_data track by $index">
+          
+          <div layout="row" class="md-3-line" flex>{{act.activity_name}}</div>
+
+
+                  <div layout="column" flex class="weekDays-selector md-3-line days" style="display:none;align:center;">
+
+                    <div layout="row" class="days">
+                      <span  ng-repeat="date in dateArray track by $index" class="weekDays-selector md-3-line days">
+                      <input type="checkbox" id="{{$parent.$index + date.name}}" value="{{date.name}}" ng-model="m_name['name'+$index+$parent.$index]" ng-change="passionChange({{$parent.$index}},m_name['name'+$index+$parent.$index],{{$parent.$index + date.name}})"/>
+                      <label for="{{$parent.$index + date.name}}">{{date.name}}</label>
+                      </span>                     
+                    </div>  
+                    <div layout="row" class="days">
+                      <span  ng-repeat="date in dateArray1 track by $index" class="weekDays-selector md-3-line days">
+                      <input type="checkbox" id="{{$parent.$index + date.name}}" value="{{date.name}}" ng-model="m_name1['name'+$index+$parent.$index]" ng-change="passionChange({{$parent.$index}},m_name1['name'+$index+$parent.$index],{{$parent.$index + date.name}})"/>
+                      <label for="{{$parent.$index + date.name}}">{{date.name}}</label>
+                      </span>                     
+                    </div> 
+                  </div>
+          <div layout="row"><canvas-gauge width="140" under-color="#EFEFEF" over-color="#FFD700" value="passionValues['progress'+$index]" mask="(@)%" style="color: gray"></canvas-gauge>
+          </div>
+   
+</md-list-item>
+</md-list>
+
+</md-content>  
+</span>
+
+<md-list>
+<md-list-item ng-if="currentNavItem==='giving'" ng-repeat="act in giving_data track by $index">
+          
+          <div layout="row" class="md-3-line" flex>{{act.activity_name}}</div>
+
+
+                  <div layout="column" flex class="weekDays-selector md-3-line days" style="display:none;align:center;">
+
+                    <div layout="row" class="days">
+                      <span  ng-repeat="date in dateArray track by $index" class="weekDays-selector md-3-line days">
+                      <input type="checkbox" id="{{$parent.$index + date.name}}" value="{{date.name}}" ng-model="m_name['name'+$index+$parent.$index]" ng-change="givingChange({{$parent.$index}},m_name['name'+$index+$parent.$index],{{$parent.$index + date.name}})"/>
+                      <label for="{{$parent.$index + date.name}}">{{date.name}}</label>
+                      </span>                     
+                    </div>  
+                    <div layout="row" class="days">
+                      <span  ng-repeat="date in dateArray1 track by $index" class="weekDays-selector md-3-line days">
+                      <input type="checkbox" id="{{$parent.$index + date.name}}" value="{{date.name}}" ng-model="m_name1['name'+$index+$parent.$index]" ng-change="givingChange({{$parent.$index}},m_name1['name'+$index+$parent.$index],{{$parent.$index + date.name}})"/>
+                      <label for="{{$parent.$index + date.name}}">{{date.name}}</label>
+                      </span>                     
+                    </div> 
+                  </div>
+          <div layout="row"><canvas-gauge width="140" under-color="#EFEFEF" over-color="#FFD700" value="givingValues['progress'+$index]" mask="(@)%" style="color: gray"></canvas-gauge>
+          </div>
+   
+</md-list-item>
+</md-list>
+
+<md-button class="md-raised" ng-click="" layout-align="center center"> Save </md-button>
+
+
+</div>
+
+</div>

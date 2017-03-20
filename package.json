@@ -1,0 +1,23 @@
+{
+  "name": "neat",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "angular": "^1.6.2",
+    "angular-animate": "*",
+    "angular-aria": "*",
+    "angular-material": "*",
+    "angular-material-icons": "*",
+    "angular-ui-router": "^0.4.2",
+    "express": "*",
+    "mongodb": "^2.2.25",
+    "mongoose": "*"
+  },
+  "author": "",
+  "license": "ISC"
+}
