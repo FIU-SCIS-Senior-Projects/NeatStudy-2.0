@@ -1,25 +1,22 @@
 {
-    "name": "neat",
-    "version": "0.0.0",
-    "private": true,
-    "scripts": {
-        "start": "node ./bin/www"
-    },
-    "dependencies": {
-        "body-parser": "~1.15.2",
-        "chai": "~1.8.1",
-        "connect-flash": "^0.1.1",
-        "cookie-parser": "~1.4.3",
-        "debug": "~2.2.0",
-        "express": "~4.14.0",
-        "express-session": "^1.10.1",
-        "jade": "~1.11.0",
-        "mongoose": "^4.4.1",
-        "morgan": "~1.7.0",
-        "passport": "^0.2.1",
-        "passport-local": "^1.0.0",
-        "passport-local-mongoose": "^1.0.0",
-        "serve-favicon": "~2.3.0",
-        "should": "~2.1.0"
-    }
+  "name": "neat",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "angular": "^1.6.2",
+    "angular-ui-router": "^0.4.2",
+    "angular-animate":"*",
+    "angular-aria":"*",
+    "angular-material":"*",
+    "angular-material-icons":"*",
+    "express": "*",
+    "mongoose": "*"
+  },
+  "author": "",
+  "license": "ISC"
 }
