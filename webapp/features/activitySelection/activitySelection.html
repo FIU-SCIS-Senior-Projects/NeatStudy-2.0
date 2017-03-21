@@ -1,97 +1,3 @@
-<style>
-  /* Modal Header */
-.modal-header {
-    padding: 2px 16px;
-    background-color: #5cb85c;
-    color: white;
-}
-
-/* Modal Body */
-.modal-body {padding: 2px 16px;}
-
-/* Modal Footer */
-.modal-footer {
-    padding: 2px 16px;
-    background-color: #5cb85c;
-    color: white;
-}
-
-/* Modal Content */
-.modal-content {
-    position: relative;
-    background-color: #fefefe;
-    margin: auto;
-    padding: 0;
-    border: 1px solid #888;
-    width: 80%;
-    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
-    -webkit-animation-name: animatetop;
-    -webkit-animation-duration: 0.4s;
-    animation-name: animatetop;
-    animation-duration: 0.4s
-}
-
-/* Add Animation */
-@-webkit-keyframes animatetop {
-    from {top: -300px; opacity: 0} 
-    to {top: 0; opacity: 1}
-}
-
-@keyframes animatetop {
-    from {top: -300px; opacity: 0}
-    to {top: 0; opacity: 1}
-}
-</style>
-
-<!-- The Modal -->
-<div id="JoyModal" class="modal">
-  <!-- Modal content -->
-  <div class="modal-content">
-   <div class="modal-header">
-     <span class="close">&times;</span>
-     <h3>Warning</h3>
-   </div>
-   <div class="modal-body">
-     <p>Only three activities may be selected</p>
-   </div>
-    <div class="modal-footer">
-      <h4></h4>
-    </div>
-  </div>
-</div>
-
-<div id="PassionModal" class="modal">
-  <!-- Modal content -->
-  <div class="modal-content">
-   <div class="modal-header">
-     <span class="close">&times;</span>
-     <h3>Warning</h3>
-   </div>
-   <div class="modal-body">
-     <p>Only two activities may be selected</p>
-   </div>
-    <div class="modal-footer">
-      <h4></h4>
-    </div>
-  </div>
-</div>
-
-<div id="MinModal" class="modal">
-  <!-- Modal content -->
-  <div class="modal-content">
-   <div class="modal-header">
-     <span class="close">&times;</span>
-     <h3>Warning</h3>
-   </div>
-   <div class="modal-body">
-     <p>Please select at least one activity</p>
-   </div>
-    <div class="modal-footer">
-      <h4></h4>
-    </div>
-  </div>
-</div>
-
 <div>
 <div layout="row" class="md-toolbar-tools" style="background-color:#26A69A;" >
     <div flex>
@@ -105,14 +11,16 @@
 
 <div id ="container">
 
+
+
   <div layout="row">
         <md-content  flex style="background-color:#80CBC4;">
 
               <md-nav-bar md-selected-nav-item="currentNavItem" nav-bar-aria-label="navigation links">
 
                   <md-nav-item md-nav-sref="joy" ng-click='joy()' name="joy" flex>JOY</md-nav-item>
-                  <md-nav-item md-nav-sref="passion" ng-click="next('passion')" name="passion" flex>PASSION</md-nav-item>
-                  <md-nav-item md-nav-sref="giving" ng-click="next('giving')" name="giving">GIVING BACK</md-nav-item>
+                  <md-nav-item md-nav-sref="passion" ng-click='passion()' name="passion" flex>PASSION</md-nav-item>
+                  <md-nav-item md-nav-sref="giving" ng-click='givingback()' name="giving">GIVING BACK</md-nav-item>
 
               </md-nav-bar>
 
@@ -151,7 +59,7 @@
   <md-list ng-if="currentNavItem==='giving'">
     <md-list-item layout="row">
       <label flex>How do you wish to give back to others?</label>
-      <a ui-sref="dataentry"><md-button class="md-raised" ng-click="createJoy()"> Finish </md-button></a>
+      <a ui-sref="dataentry"><md-button class="md-raised"  ng-click="create()"> Finish </md-button></a>
     </md-list-item>
     <md-list-item layout="row">
       <label flex>Select up to two activities that give you a sense of fulfillment from giving back or helping others</label>
@@ -164,8 +72,8 @@
 <md-list-item ng-if="currentNavItem==='joy'">
 
           <section layout="row" layout-sm="column" layout-align="center center" layout-wrap>
-          <!--<md-button class="md-raised" ng-click="create()">Create</md-button>-->
-          <md-button class="md-raised" ng-click="savejoy('Photography')" id="Photography">Photography</md-button>
+           <md-button class="md-raised" ng-click="create()">Create</md-button>
+          <md-button class="md-raised" id="Photography" ng-model="Photography" value="Photography" ng-click="savejoy('Photography')">Photography</md-button>
           <md-button class="md-raised" ng-click="savejoy('Technology')" id="Technology">Technology</md-button>
           <md-button class="md-raised" ng-click="savejoy('Design')" id="Design"> Design</md-button>
           <md-button class="md-raised" ng-click="savejoy('Music')" id="Music"> Music</md-button>
@@ -183,7 +91,7 @@
           <md-button class="md-raised" ng-click="savejoy('Politics')" id="Politics"> Politics</md-button>
           <md-button class="md-raised" ng-click="savejoy('Hiking')" id="Hiking"> Hiking</md-button>
           <md-button class="md-raised" ng-click="savejoy('Programming')" id="Programming"> Programming</md-button>
-          <md-button class="md-raised" ng-click="savejoy('WebDevelopment')" id="WebDevelopment"> Web Development</md-button>
+          <md-button class="md-raised" ng-click="savejoy('Web Development')" id="Web Development"> Web Development</md-button>
           <md-button class="md-raised" ng-click="savejoy('Innovation')" id="Innovation"> Innovation</md-button>
           <md-button class="md-raised" ng-click="savejoy('Education')" id="Education"> Education</md-button>
           <md-button class="md-raised" ng-click="savejoy('DIY')" id="DIY"> DIY</md-button>
@@ -203,35 +111,35 @@
 <md-list-item ng-if="currentNavItem==='passion'">
 
           <section layout="row" layout-sm="column" layout-align="center center" layout-wrap>
-          <md-button class="md-raised" ng-click="savepassion('Student')" id="Student">Student</md-button>
-          <md-button class="md-raised" ng-click="savepassion('WebDeveloper')" id="WebDeveloper">Web Developer</md-button>
-          <md-button class="md-raised" ng-click="savepassion('SoftwareEngineer')" id="SoftwareEngineer">Software Engineer</md-button>
-          <md-button class="md-raised" ng-click="savepassion('ProjectManager')" id="ProjectManager">Project Manager</md-button>
-          <md-button class="md-raised" ng-click="savepassion('Consultant')" id="Consultant">Consultant</md-button>
-          <md-button class="md-raised" ng-click="savepassion('Designer')" id="Designer">Designer</md-button>
-          <md-button class="md-raised" ng-click="savepassion('ArtDirector')" id="ArtDirector">Art Director</md-button>
-          <md-button class="md-raised" ng-click="savepassion('Artist')" id="Artist">Artist</md-button>
-          <md-button class="md-raised" ng-click="savepassion('Architect')" id="Architect">Architect</md-button>
-          <md-button class="md-raised" ng-click="savepassion('Teacher')" id="Teacher">Teacher</md-button>
-          <md-button class="md-raised" ng-click="savepassion('Writer')" id="Writer">Writer</md-button>
-          <md-button class="md-raised" ng-click="savepassion('Editor')" id="Editor">Editor</md-button>
-          <md-button class="md-raised" ng-click="savepassion('Director')" id="Director">Director</md-button>
-          <md-button class="md-raised" ng-click="savepassion('Mother')" id="Mother">Mother</md-button>
-          <md-button class="md-raised" ng-click="savepassion('Father')" id="Father">Father</md-button>
-          <md-button class="md-raised" ng-click="savepassion('Musician')" id="Musician">Musician</md-button>
-          <md-button class="md-raised" ng-click="savepassion('Dancer')" id="Dancer">Dancer</md-button>
-          <md-button class="md-raised" ng-click="savepassion('Photographer')" id="Photographer">Photographer</md-button>
-          <md-button class="md-raised" ng-click="savepassion('Filmmaker')" id="Filmmaker">Filmmaker</md-button>
-          <md-button class="md-raised" ng-click="savepassion('Actor')" id="Actor">Actor</md-button>
-          <md-button class="md-raised" ng-click="savepassion('Chef')" id="Chef">Chef</md-button>
-          <md-button class="md-raised" ng-click="savepassion('Barista')" id="Barista">Barista</md-button>
-          <md-button class="md-raised" ng-click="savepassion('Volunteer')" id="Volunteer">Volunteer</md-button>
-          <md-button class="md-raised" ng-click="savepassion('Doctor')" id="Doctor">Doctor</md-button>
-          <md-button class="md-raised" ng-click="savepassion('Nurse')" id="Nurse">Nurse</md-button>
-          <md-button class="md-raised" ng-click="savepassion('Realtor')" id="Realtor">Realtor</md-button>
-          <md-button class="md-raised" ng-click="savepassion('Attorney')" id="Attorney">Attorney</md-button>
-          <md-button class="md-raised" ng-click="savepassion('Therapist')" id="Therapist">Therapist</md-button>
-          <md-button class="md-raised" ng-click="savepassion('Psychologist')" id="Psychologist">Psychologist</md-button>
+          <md-button class="md-raised">Student</md-button>
+          <md-button class="md-raised">Web Developer</md-button>
+          <md-button class="md-raised">Software Engineer</md-button>
+          <md-button class="md-raised">Project Manager</md-button>
+          <md-button class="md-raised">Consultant</md-button>
+          <md-button class="md-raised">Designer</md-button>
+          <md-button class="md-raised">Art Director</md-button>
+          <md-button class="md-raised">Artist</md-button>
+          <md-button class="md-raised">Architect</md-button>
+          <md-button class="md-raised">Teacher</md-button>
+          <md-button class="md-raised">Writer</md-button>
+          <md-button class="md-raised">Editor</md-button>
+          <md-button class="md-raised">Director</md-button>
+          <md-button class="md-raised">Mother</md-button>
+          <md-button class="md-raised">Father</md-button>
+          <md-button class="md-raised">Musician</md-button>
+          <md-button class="md-raised">Dancer</md-button>
+          <md-button class="md-raised">Photographer</md-button>
+          <md-button class="md-raised">Filmmaker</md-button>
+          <md-button class="md-raised">Actor</md-button>
+          <md-button class="md-raised">Chef</md-button>
+          <md-button class="md-raised">Barista</md-button>
+          <md-button class="md-raised">Volunteer</md-button>
+          <md-button class="md-raised">Doctor</md-button>
+          <md-button class="md-raised">Nurse</md-button>
+          <md-button class="md-raised">Realtor</md-button>
+          <md-button class="md-raised">Attorney</md-button>
+          <md-button class="md-raised">Therapist</md-button>
+          <md-button class="md-raised">Psychologist</md-button>
           </section>
 
 <md-divider></md-divider>

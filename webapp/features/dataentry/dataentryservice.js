@@ -18,18 +18,16 @@ angular.module('dataentryservice',[]).service('dataentry_service',['$http','$log
 
 		this.saveJoy_data = function(cb){
 		$http({
-			url: '/joy_data/',
-			method: 'POST'
-			/*data: ;*/
+			url: '/save_joy/',
+			method: 'post',
+			data: cb,
+			config: 'Content-Type: application/json;'
 		})
-		.then(function(req){
-			$log.log(req.data);
-			 cb(req.data);
-
-		},function(req){
-             $log.error('ERROR');
-		})         
-		}
+		.then(function (response) {
+            console.log(response);
+        }, function (response) {
+            console.log(response);
+        })};
 
 		this.getPassion_data = function(cb){
 		$http({
@@ -60,10 +58,10 @@ angular.module('dataentryservice',[]).service('dataentry_service',['$http','$log
 		})            
 		}
 
-		this.createActivity = function(newActivity){
+		this.createJoy = function(newActivity){
        $http({
             method: 'post',
-            url:'/create_activity/',
+            url:'/create_joy/',
             data: newActivity,
             config: 'Content-Type: application/json;'
         }).then(function (response) {

@@ -7,11 +7,11 @@ angular.module('dataentry', ['dataentryservice'])
 .controller('dataentry', ['$scope','dataentry_service', function($scope,dataentry_service) {
 
 $scope.joyValues={};
-$scope.joySum = 0;
+$scope.joyCounts = 0;
 $scope.passionValues={};
-$scope.passionSum = 0;
+$scope.passionCounts = 0;
 $scope.givingValues={};
-$scope.givingSum = 0;
+$scope.givingCounts = 0;
 $scope.m_name={};
 $scope.m_name1={};
 $scope.startDate;
@@ -38,15 +38,17 @@ $scope.joy = function(){
 	dataentry_service.getJoy_data(function(data){
 				$scope.length = data.length;
 		  for(var i =0; i<data.length; i++){
-				  	$scope['days_joy'+i] = [];
-				  	$scope['progress'+i] = 0;
-				  	$scope.joyValues['progress'+i]=0;
+				  	$scope['days_joy'+i] = data[i].scores;
+				  	$scope['progress'+i] = data[i].progress;
+				  	$scope.joyValues['progress'+i] = data[i].progress;
 
 				  }
 		$scope.joy_data = data;
 
 	});
 }
+
+$scope.saveJoy = function(data){dataentry_service.saveJoy_data(data)};
 
 $scope.passion = function(){
 	dataentry_service.getPassion_data(function(data){
@@ -78,27 +80,7 @@ $scope.giving = function(){
 
 }
 
-$scope.joyChange= function(index,check,value){
-		var a = 'days_joy'+index;
-		var p = 'progress'+index;
-		if(check){
-			$scope[a].push(value);
-
-			if($scope.joySum < 12)
-				$scope.joyValues[p] += 8.333;
-			$scope.joySum++;
-
-		}
-
-		else{
-			$scope[a].splice($scope[a].indexOf(value), 1);
-			if($scope.joySum <= 12)
-				$scope.joyValues[p] -= 8.333;
-			$scope.joySum--;
-
-		}
-
-		/*dataentry_service.saveJoy_data(function(data){
+/*dataentry_service.saveJoy_data(function(data){
 				data.length = $scope.length;
 		  for(var i =0; i<data.length; i++){
 				  	data.scores = $scope['days_joy'+i];
@@ -107,26 +89,59 @@ $scope.joyChange= function(index,check,value){
 		data = $scope.joy_data;
 
 	});*/
+
+$scope.joyChange= function(save,activity,index,check,value){
+		var a = 'days_joy'+index;
+		var p = 'progress'+index;
+		if(check){
+				$scope[a].push(value);
+				$scope.joyCounts++;
+				if($scope.joyCounts > 12){
+					$scope.joyValues[p] = 100;
+				}
+				else{
+					$scope.joyValues[p] = 100 * $scope.joyCounts / 12;
+				}
+		}
+
+		else{
+			$scope[a].splice($scope[a].indexOf(value), 1);
+			$scope.joyCounts--;
+			if($scope.joyCounts > 12){
+				$scope.joyValues[p] = 100;
+			}
+			else{
+				$scope.joyValues[p] = 100 * $scope.joyCounts / 12;
+			}
+		}
+
+		//if(save == true)
+			$scope.saveJoy([activity, $scope[a], $scope.joyValues[p]]);
 }
 
 $scope.passionChange= function(index,check,value){
 		var a = 'days_passion'+index;
 		var p = 'progress'+index;
 		if(check){
-			$scope[a].push(value);
-
-			if($scope.passionSum < 9)
-				$scope.passionValues[p] += 11.111;
-			$scope.passionSum++;
-
+				$scope[a].push(value);
+				$scope.passionCounts[p]++;
+				if($scope.passionCounts[p] > 12){
+					$scope.passionValues[p] = 100;
+				}
+				else{
+					$scope.passionValues[p] = 100 * $scope.passionCounts[p] / 12;
+				}
 		}
 
 		else{
 			$scope[a].splice($scope[a].indexOf(value), 1);
-			if($scope.passionSum <= 12)
-				$scope.passionValues[p] -= 11.111;
-			$scope.passionSum--;
-
+			$scope.passionCounts[p]--;
+			if($scope.passionCounts[p] > 12){
+				$scope.passionValues[p] = 100;
+			}
+			else{
+				$scope.passionValues[p] = 100 * $scope.passionCounts[p] / 12;
+			}
 		}
 }
 
@@ -134,29 +149,39 @@ $scope.givingChange= function(index,check,value){
 		var a = 'days_giving'+index;
 		var p = 'progress'+index;
 		if(check){
-			$scope[a].push(value);
-
-			if($scope.givingSum < 3)
-				$scope.givingValues[p] += 33.333;
-			$scope.givingSum++;
-
+				$scope[a].push(value);
+				$scope.givingCounts[p]++;
+				if($scope.givingCounts[p] > 12){
+					$scope.givingValues[p] = 100;
+				}
+				else{
+					$scope.givingValues[p] = 100 * $scope.givingCounts[p] / 12;
+				}
 		}
 
 		else{
 			$scope[a].splice($scope[a].indexOf(value), 1);
-			if($scope.givingSum <= 3)
-				$scope.givingValues[p] -= 33.333;
-			$scope.givingSum--;
-
+			$scope.givingCounts[p]--;
+			if($scope.givingCounts[p] > 12){
+				$scope.givingValues[p] = 100;
+			}
+			else{
+				$scope.givingValues[p] = 100 * $scope.givingCounts[p] / 12;
+			}
 		}
 }
+
+$scope.isChecked = function(act, date)
+{
+	return (act.scores.indexOf(parseInt(date.name, 10)) != -1);
+};
 
 $scope.next = function(atName)
 {
 	$scope.currentNavItem = atName;
 };
 
- $scope.initDatepicker = function(){
+$scope.initDatepicker = function(){
         angular.element(".md-datepicker-button").each(function(){
             var el = this;
             var ip = angular.element(el).parent().find("input").bind('click', function(e){
@@ -167,15 +192,37 @@ $scope.next = function(atName)
     };
 
 
-$scope.sDate = function(startingDate,endDate){
-	//$scope.date=startingDate.getDate();
-	//$scope.endDate= startingDate.getDate()+parseInt(13);
+$scope.sDate = function(){
+var startingDate = arguments[0];
+	if(arguments.length ==1){
+		var number_of_weeks = 2;
+	}
+
+	else if(arguments.length == 2){
+		if(arguments[1]==1)
+			var number_of_weeks = 1;
+		else if(arguments[1]==2)
+			var number_of_weeks = 2;
+	}
+
+	$('.Days').css('display', 'none');
+
+	var eDate;
+	if(number_of_weeks == 1){
+		eDate= moment(startingDate).add(6, 'days');
+		$scope.endDate = new Date(eDate);
+	}
+	else if(number_of_weeks == 2){
+		eDate= moment(startingDate).add(13, 'days');
+		$scope.endDate = new Date(eDate);
+	}
+
 			var range=[];
 			var range1=[];
 			var name="name";
 			var counter = 0;
 			var d=0;
-			var itr = moment.twix(startingDate,endDate).iterate("days");
+			var itr = moment.twix(startingDate,eDate).iterate("days");
 			while(itr.hasNext()){
 			if(counter<=6){
 			d = itr.next().format("D");
@@ -192,8 +239,9 @@ $scope.sDate = function(startingDate,endDate){
 			//range.push('name', itr.next().format("D"));
 			}
 			console.log($scope.m_name);
-			$scope.dateArray = range;
 			$scope.dateArray1 = range1;
+			$scope.dateArray = range;
+
 
 
 				if(startingDate.getDay()==0) $scope.week = ['S','M','T','W','Th','F','Sa'];
@@ -207,7 +255,7 @@ $scope.sDate = function(startingDate,endDate){
 
 
 
-				$('.Days').css('display', 'block');
+				$('.Days').css('display', 'inline-flex');
 
 }
 
