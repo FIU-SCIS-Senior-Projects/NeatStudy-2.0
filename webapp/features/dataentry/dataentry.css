@@ -73,9 +73,9 @@ margin-top: -150px;
 
 .full-height {
     width: 600px;
-    height: -moz-calc(100% - 64px); 
-    height: -webkit-calc(100% - 64px); 
+    height: -moz-calc(100% - 64px);
+    height: -webkit-calc(100% - 64px);
     height: calc(100% - 64px);
 }
 
-
+.liquidFillGaugeText { font-family: Helvetica; font-weight: bold; font-size: 24}

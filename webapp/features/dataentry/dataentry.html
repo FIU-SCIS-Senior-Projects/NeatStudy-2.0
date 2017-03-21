@@ -53,10 +53,10 @@
               <md-datepicker  ng-model="endDate" ng-change="sDate(startDate,endDate)" md-placeholder="End date" value="endDate" disabled></md-datepicker>
 
               </div>
-              
+
               <div>
               <label>Scores</label>
-              </div>  
+              </div>
           </md-list-item>
         </md-list>
       </md-content>
@@ -81,12 +81,12 @@
 
 
 
-    
 
-<md-content  class="full-height">  
+
+<md-content  class="full-height">
 <md-list>
 <md-list-item ng-if="currentNavItem==='joy'" ng-repeat="act in joy_data track by $index">
-          
+
           <div layout="row" class="md-3-line" flex>{{act.activity_name}}</div>
 
 
@@ -96,14 +96,14 @@
                       <span  ng-repeat="date in dateArray track by $index" class="weekDays-selector md-3-line days">
                       <input type="checkbox" id="{{$parent.$index + date.name}}" value="{{date.name}}" ng-model="m_name['name'+$index+$parent.$index]" ng-change="change({{$parent.$index}},m_name['name'+$index+$parent.$index],{{$parent.$index + date.name}})"/>
                       <label for="{{$parent.$index + date.name}}">{{date.name}}</label>
-                      </span>                     
-                    </div>  
+                      </span>
+                    </div>
                     <div layout="row">
                       <span  ng-repeat="date in dateArray1 track by $index" class="weekDays-selector md-3-line days">
                       <input type="checkbox" id="{{$parent.$index + date.name}}" value="{{date.name}}" ng-model="m_name1['name'+$index+$parent.$index]" ng-change="change({{$parent.$index}},m_name1['name'+$index+$parent.$index],{{$parent.$index + date.name}})"/>
                       <label for="{{$parent.$index + date.name}}">{{date.name}}</label>
-                      </span>                     
-                    </div> 
+                      </span>
+                    </div>
 
                   </div>
 
@@ -117,10 +117,10 @@
           </div>
 
 <md-divider></md-divider>
-   
+
 </md-list-item>
 </md-list>
-</md-content>  
+</md-content>
 </span>
 
 <md-card ng-if="currentNavItem==='passion'" ng-repeat="act in passion_data">
@@ -165,6 +165,6 @@
 
 </div>
 
-<svg id="fillgauge2" width='80%' height='200' onclick="gauge2.update()"></svg>
+<svg id="fillgauge2" width='80%' height='200'></svg>
 
 </div>
